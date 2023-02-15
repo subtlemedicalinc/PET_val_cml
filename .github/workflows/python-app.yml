@@ -1,0 +1,13 @@
+name: test_gpu
+on: [push]
+jobs:
+  run:
+    runs-on: [self-hosted,cml,gpu]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run CML
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          nvidia-smi > report.md
+          cml-send-comment report.md 
